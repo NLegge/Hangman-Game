@@ -13,25 +13,40 @@
 			<img src="assets/images/Rick_and_Morty_logo.png">
 			<h1>Hangman</h1>
 		</div>
-		<div class="rightPanel">
-			<img src="assets/images/Rick&Morty.jpg" class="mainPic">
-		</div>
-		<div class="gamePlay">
-				<p>Press any key to get started!</p>
-				<br>
-				<p>Wins:</p>
-				<p id="wins"></p>
-				<br>
-				<p>Current Word</p>
-				<p id="word"></p>
-				<br>
-				<p>Number of guesses remaining: </p>
-				<p id="guesses"></p>
-				<br>
-				<p>Leters already guessed: </p>
-				<p id="letters"></p>
+		<div class="internalContent">
+			<div class="leftPanel">
+				<img src="assets/images/Rick&Morty.jpg" class="mainPic">
+			</div>
+			<div class="gamePlay">
+					<p>Press any key to get started!</p>
+					<br>
+					<br>
+					<p>Wins:</p>
+					<p id="wins">0</p>
+					<br>
+					<br>
+					<p>Current Word:</p>
+					<ul id="word">
+						<li id="one">s</li>
+						<li id="two">c</li>
+						<li id="three">h</li>
+						<li id="four">w</li>
+						<li id="five">i</li>
+						<li id="six">f</li>
+						<li id="seven">t</li>
+						<li id=eight>y</li>
+					</ul>
+					<br>
+					<br>
+					<p>Number of guesses remaining: </p>
+					<p id="guesses">9</p>
+					<br>
+					<br>
+					<p>Leters already guessed: </p>
+					<p id="letters">. . . . . . . . .</p>
+			</div>
 		</div>
 	</div>
-	<script type="text/javascript" ></script>
+	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
 </html>
