@@ -1,68 +1,66 @@
 window.onload = function () {
 
-var answers = ["s", "c", "h", "w", "i", "f", "t", "y"];
-//Game starts with a score of 0
+var answers = ["schwifty", "pickle", "moonmen", "tiny", "rick", "morty", "jerry", "brothers", "beth", "summer", "chitz"];
+var currentWord = answers[Math.floor(Math.random() * answers.length)];
+var lettersCurrentWord = currentWord.split("");
+var numBlanks = lettersCurrentWord.length;
+var blanksAndSuccesses = [];
 var numWins = 0;
-//Game starts with 9 guesses
-var numGuesses = 9;
-//Variable to store letters guessed
-var letterGuess = "";
-//variable to list good guesses
-var goodGuess = "";
+var numGuesses = 13;
+var goodGuess = 0
+var letterGuess = [];
+var userGuess;
+var alphabet = ["a", "b", "c", "d", "e", "f", "g",
+                "h", "i", "j", "k", "l", "m", "n",
+                "o", "p", "q", "r", "s", "t", "u",
+                "v", "w", "x", "y", "z"];
 
 
-var list = document.getElementsByTagName("li");
-//list.style.display === 'none';
+for (var i = 0; i < numBlanks; i++) {
+      blanksAndSuccesses.push("_");
+      word.innerHTML = blanksAndSuccesses.join(" ");
+}
 
-// Captures keyboard input. Depending on the letter pressed it will "call" (execute) different functions.
-      document.onkeyup = function(event) {
-        // Captures the key press, converts it to lowercase, and saves it to a variable.
-        var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-        letterGuess = userGuess + letterGuess;
+
+console.log(lettersCurrentWord);
+
+
+  //Win or lose
+  function winLose () {
+    if (goodGuess === numBlanks) {
+      numWins++;
+      reset(); //not yet defined
+    }
+    else if (numGuesses === 0) {
+      loser(); //not yet defined
+      reset(); //not yet defined
+    }
+  }
+
+
+  // Captures keyboard input to populate letters guessed and correct letters. 
+  document.onkeyup = function(event) {
+    userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+    letterGuess += userGuess;
 		letters.innerHTML = letterGuess;
 		numGuesses--;
 		guesses.innerHTML = numGuesses;
+    
+    for (var i = 0; i < numBlanks; i++) {
+      if (lettersCurrentWord[i] === userGuess) {
+        blanksAndSuccesses[i] = userGuess;
+        word.innerHTML = blanksAndSuccesses.join(" ");
+        goodGuess++;
+      }
+    }
 
-      for (var i=0; i< answers.length; i++) {
-        if (userGuess === answers[i]) {
-        	goodGuess = userGuess + goodGuess;
-			word.innerHTML = goodGuess;
-        } 
-		else {
-
-		} 
-		}
-
-
-      };
+  }
+    
 
 
-/*
-
-//function to update the wins
-function updateScore() {
-        document.querySelector("#wins").innerHTML = wins;
-}
-
-//if letter is part of answer, populate #word & #letters and decrease #guesses by 1
-if () {
-
-}
-//else populate #letters and decrease #guesses by 1
-else {
-
-}
-
-//if all letters guessed within # of guesses, increase wins by 1
-if () {
-            wins++;
-            updateScore();
-}
-// if # of guesses reaches 0 and word not guessed, game over?
-else if {
-
-}
-*/
 
 
 }
+
+
+
