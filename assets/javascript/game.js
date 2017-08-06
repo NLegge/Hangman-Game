@@ -1,9 +1,9 @@
 window.onload = function () {
 
 var answers = ["schwifty", "pickle", "moonmen", "tiny", "rick", "morty", "jerry", "brothers", "beth", "summer", "chitz"];
-var currentWord = answers[Math.floor(Math.random() * answers.length)];
-var lettersCurrentWord = currentWord.split("");
-var numBlanks = lettersCurrentWord.length;
+var currentWord;
+var lettersCurrentWord;
+var numBlanks;
 var blanksAndSuccesses = [];
 var numWins = 0;
 var numGuesses = 13;
@@ -15,28 +15,43 @@ var alphabet = ["a", "b", "c", "d", "e", "f", "g",
                 "o", "p", "q", "r", "s", "t", "u",
                 "v", "w", "x", "y", "z"];
 
-
+currentWord = answers[Math.floor(Math.random() * answers.length)];
+lettersCurrentWord = currentWord.split("");
+numBlanks = lettersCurrentWord.length;
 for (var i = 0; i < numBlanks; i++) {
       blanksAndSuccesses.push("_");
       word.innerHTML = blanksAndSuccesses.join(" ");
 }
 
-
-console.log(lettersCurrentWord);
-
-
   //Win or lose
   function winLose () {
     if (goodGuess === numBlanks) {
       numWins++;
-      reset(); //not yet defined
+      wins.innerHTML = numWins;
+      reset(); 
     }
     else if (numGuesses === 0) {
-      loser(); //not yet defined
-      reset(); //not yet defined
+      documentGetElementById("mainPic").src="assets/images/getItTogether.png";
+      reset(); 
     }
   }
 
+  //Pick a new word, reset number of guesses, clear guessed letters, reset number of good guesses
+  function reset () {
+    blanksAndSuccesses = [];    
+    currentWord = answers[Math.floor(Math.random() * answers.length)];
+    lettersCurrentWord = currentWord.split("");
+    numBlanks = lettersCurrentWord.length;
+    for (var i = 0; i < numBlanks; i++) {
+          blanksAndSuccesses.push("_");
+          word.innerHTML = blanksAndSuccesses.join(" ");
+    letterGuess = [];
+    letters.innerHTML = letterGuess;
+    numGuesses = 13;
+    guesses.innerHTML = numGuesses;
+    goodGuess = 0;
+}
+  }
 
   // Captures keyboard input to populate letters guessed and correct letters. 
   document.onkeyup = function(event) {
@@ -53,7 +68,7 @@ console.log(lettersCurrentWord);
         goodGuess++;
       }
     }
-
+    winLose();
   }
     
 
