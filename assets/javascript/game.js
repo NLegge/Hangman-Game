@@ -31,8 +31,10 @@ for (var i = 0; i < numBlanks; i++) {
       reset(); 
     }
     else if (numGuesses === 0) {
-      documentGetElementById("mainPic").src="assets/images/getItTogether.png";
       reset(); 
+      document.getElementById("mainPic").src="assets/images/getItTogether.png";
+      var audio = new Audio("assets/audio/Get Your Shit Together.mp3");
+      audio.play();
     }
   }
 
