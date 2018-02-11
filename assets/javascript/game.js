@@ -8,6 +8,7 @@ var blanksAndSuccesses = [];
 var numWins = 0;
 var numGuesses = 13;
 var goodGuess = 0
+var goodGuessLetters = [];
 var letterGuess = [];
 var userGuess;
 var alphabet = ["a", "b", "c", "d", "e", "f", "g",
@@ -15,66 +16,73 @@ var alphabet = ["a", "b", "c", "d", "e", "f", "g",
                 "o", "p", "q", "r", "s", "t", "u",
                 "v", "w", "x", "y", "z"];
 
-currentWord = answers[Math.floor(Math.random() * answers.length)];
-lettersCurrentWord = currentWord.split("");
-numBlanks = lettersCurrentWord.length;
-for (var i = 0; i < numBlanks; i++) {
-      blanksAndSuccesses.push("_");
-      word.innerHTML = blanksAndSuccesses.join(" ");
+
+//Win or lose
+function winLose () {
+  if (goodGuess === numBlanks) {
+  numWins++;
+  wins.innerHTML = numWins;
+  reset(); 
+  }
+  else if (numGuesses === 0) {
+    reset(); 
+    document.getElementById("mainPic").src="assets/images/getItTogether.png";
+    var audio = new Audio("assets/audio/Get Your Shit Together.mp3");
+    audio.play();
+  }
 }
 
-  //Win or lose
-  function winLose () {
-    if (goodGuess === numBlanks) {
-      numWins++;
-      wins.innerHTML = numWins;
-      reset(); 
-    }
-    else if (numGuesses === 0) {
-      reset(); 
-      document.getElementById("mainPic").src="assets/images/getItTogether.png";
-      var audio = new Audio("assets/audio/Get Your Shit Together.mp3");
-      audio.play();
-    }
-  }
-
-  //Pick a new word, reset number of guesses, clear guessed letters, reset number of good guesses
-  function reset () {
-    blanksAndSuccesses = [];    
-    currentWord = answers[Math.floor(Math.random() * answers.length)];
-    lettersCurrentWord = currentWord.split("");
-    numBlanks = lettersCurrentWord.length;
-    for (var i = 0; i < numBlanks; i++) {
-          blanksAndSuccesses.push("_");
-          word.innerHTML = blanksAndSuccesses.join(" ");
+//Pick a new word, reset number of guesses, clear guessed letters, reset number of good guesses
+function reset () {
+  blanksAndSuccesses = [];    
+  currentWord = answers[Math.floor(Math.random() * answers.length)];
+  lettersCurrentWord = currentWord.split("");
+  numBlanks = lettersCurrentWord.length;
+  for (var i = 0; i < numBlanks; i++) {
+    blanksAndSuccesses.push("_");
+    word.innerHTML = blanksAndSuccesses.join(" ");
     letterGuess = [];
     letters.innerHTML = letterGuess;
     numGuesses = 13;
     guesses.innerHTML = numGuesses;
     goodGuess = 0;
-}
   }
+}
 
-  // Captures keyboard input to populate letters guessed and correct letters. 
-  document.onkeyup = function(event) {
-    userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-    letterGuess += userGuess;
-		letters.innerHTML = letterGuess;
-		numGuesses--;
-		guesses.innerHTML = numGuesses;
-    
-    for (var i = 0; i < numBlanks; i++) {
-      if (lettersCurrentWord[i] === userGuess) {
-        blanksAndSuccesses[i] = userGuess;
-        word.innerHTML = blanksAndSuccesses.join(" ");
-        goodGuess++;
+// Captures keyboard input to populate letters guessed and blanksAndSuccesses. 
+document.onkeyup = function(event) {
+  userGuess = event.key.toLowerCase();
+  if (alphabet.indexOf(userGuess) !== -1) {
+    if (letterGuess.indexOf(userGuess) === -1) {
+      letterGuess += userGuess;
+      letters.innerHTML = letterGuess;
+      if (numGuesses > 0) {
+        numGuesses--;
+        guesses.innerHTML = numGuesses;
+        for (var i = 0; i < numBlanks; i++) {
+          if (lettersCurrentWord[i] === userGuess) {
+            blanksAndSuccesses[i] = userGuess;
+            word.innerHTML = blanksAndSuccesses.join(" ");
+            goodGuess++;          
+            winLose();
+          }
+        }
+      }
+      else {
+        winLose();
       }
     }
-    winLose();
+    else {
+      alert(userGuess + " has already been selected. Please pick another letter.");
+    }
   }
+  else {
+    alert(userGuess + " is not a letter.");
+  }
+}
     
 
-
+reset();
 
 
 }
