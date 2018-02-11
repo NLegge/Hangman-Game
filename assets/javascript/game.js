@@ -24,12 +24,16 @@ function winLose () {
   wins.innerHTML = numWins;
   reset(); 
   }
-  else if (numGuesses === 0) {
-    reset(); 
-    document.getElementById("mainPic").src="assets/images/getItTogether.png";
-    var audio = new Audio("assets/audio/Get Your Shit Together.mp3");
-    audio.play();
+  else {
+    lose();
   }
+}
+
+function lose () {
+  reset();
+  document.getElementById("mainPic").src = "assets/images/getItTogether.png";
+  var audio = new Audio("assets/audio/Get Your Shit Together.mp3");
+  audio.play();
 }
 
 //Pick a new word, reset number of guesses, clear guessed letters, reset number of good guesses
@@ -69,7 +73,7 @@ document.onkeyup = function(event) {
         }
       }
       else {
-        winLose();
+        lose();
       }
     }
     else {
